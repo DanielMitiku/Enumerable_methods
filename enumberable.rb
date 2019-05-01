@@ -96,6 +96,7 @@ module Enumerable
     end
 
     def my_count
+      if block_given?
         count = 0
         if self.class == Array
           self.my_each do |value|
@@ -111,6 +112,9 @@ module Enumerable
           end
         end
         count
+      else
+        self.size
+      end
     end
 
     def my_map(proc = '')
@@ -141,25 +145,23 @@ module Enumerable
         end
     end
 
-    def my_inject
-        total = 0
-        if self.class == Array
-          self.my_each do |value|
-            total = yield(total, value)
-          end
-        elsif self.class == Hash
-          self.my_each do |key, value|
-            total = yield(total, value)
-          end
-        else
-        end
-        total
+    def my_inject(arg = nil)
+      arr = self.class == Array ? self.clone : self.class == Range ? self.to_a : self.my_map {|k, v| v }
+      acc = arg == nil ? arr[0] : arg
+      nxt = arg == nil ? arr[1] : arr[0]
+      i = arg == nil ? 1 : 0
+      while i < arr.size do
+        acc = yield(acc,nxt)
+        nxt = arr[i+1]
+        i+=1
+      end
+      acc
     end
 
 end
 
 def multiply_els(array)
-  array.my_inject { |total,value| total+value}
+  array.my_inject { |total,value| total*value}
 end
 arr = [1,2,3,4]
 puts multiply_els(arr)
