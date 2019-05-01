@@ -141,8 +141,8 @@ module Enumerable
         end
     end
 
-    def my_inject(x)
-        total = x
+    def my_inject
+        total = 0
         if self.class == Array
           self.my_each do |value|
             total = yield(total, value)
@@ -156,7 +156,8 @@ module Enumerable
         total
     end
 
-    def multiply_els(array)
-      array.my_inject { |total,value| total*value}
-    end
+end
+
+def multiply_els(array)
+  array.my_inject { |total,value| total+value}
 end
