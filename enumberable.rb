@@ -73,8 +73,8 @@ module Enumerable
               return true
             end
           end
-          false
         end
+        false
     end
 
     def my_none?
@@ -161,3 +161,7 @@ end
 def multiply_els(array)
   array.my_inject { |total,value| total+value}
 end
+arr = [1,2,3,4]
+puts multiply_els(arr)
+puts arr.my_count{|x| x==2 || x==4}
+puts arr.my_any?{ |x| x==5}
