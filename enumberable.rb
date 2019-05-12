@@ -1,8 +1,8 @@
 module Enumerable
     def my_each
         if self.class == Array
-            for i in (0...self.length)
-                yield(self[i])
+            for i in self
+                yield(i)
             end
         elsif self.class == Hash
             for i in (0...self.keys.length)
