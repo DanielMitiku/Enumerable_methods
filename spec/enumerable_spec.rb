@@ -3,15 +3,17 @@ require './enumberable.rb'
 RSpec.describe Enumerable do
     describe "#my_each" do
         it "takes a block" do
-            expect([1,2,3,4].my_each{|x| puts x}).to eql([1,2,3,4]) 
+            expect([1,2,3,4].my_each{|x| x}).to eql([1,2,3,4]) 
         end
     end
     
-    describe "#my_each_with_index" do
-        it "takes a block with element and index" do
-            expect([1,2,3,4].my_each_with_index{|x,i| i}).to eql((0...4))
+    describe '#my_each_with_index' do
+        it 'takes a block with element and index' do
+          arr_index = []
+          [1, 2, 3, 4].my_each_with_index { |_x, i| arr_index.push(i) }
+          expect(arr_index).to eql((0...4).to_a)
         end
-    end
+      end
 
     describe "#my_select" do
         it "returns a new array with elements that pass a condition" do
